@@ -9,9 +9,11 @@
     <label for="login"></label>
     <div class="input-box">
       <input v-model="value" :placeholder="placeholder" />
-      <EyesSvg />
+      <EyesSvg
+        v-if="fieldType === 'password' || fieldType === 'confirmPassword'"
+      />
     </div>
-    <div class="message">
+    <div class="message" v-if="fieldMessage">
       <WarningSvg />
       {{ fieldMessage }}
     </div>

@@ -26,7 +26,6 @@ function checkEmail(value) {
 }
 
 function checkPassword(value, password, confirmPassword) {
-  console.log(value, password, confirmPassword);
   if (confirmPassword) {
     if (password === confirmPassword) {
       return { status: true, confirm: true, message: "" };

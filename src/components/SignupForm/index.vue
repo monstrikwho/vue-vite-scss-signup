@@ -32,6 +32,7 @@
           button: true,
           disabled: invalid,
         }"
+        v-on:click="sendForm()"
         >Зарегистрироваться
       </a>
     </div>
@@ -86,6 +87,11 @@ export default {
       const filter2 = keys2.filter((value) => value.length);
 
       this.invalid = filter.length < 4 || filter2.length !== 0;
+    },
+    sendForm() {
+      if (this.invalid) return;
+
+      this.$router.push("/succes");
     },
   },
 };

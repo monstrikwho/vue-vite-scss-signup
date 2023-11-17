@@ -8,20 +8,11 @@
   >
     <label for="login"></label>
     <div class="input-box">
-      <input
-        v-model="value"
-        :placeholder="placeholder"
-        :type="
-          (fieldType === 'password' || fieldType === 'confirmPassword') &&
-          !eyesStatus
-            ? 'password'
-            : 'text'
-        "
-      />
+      <input v-model="value" :placeholder="placeholder" :type="inputType()" />
       <EyesSvg
         :class="{ active: eyesStatus }"
-        v-if="fieldType === 'password' || fieldType === 'confirmPassword'"
-        v-on:click="changeEyes()"
+        v-if="isPassword()"
+        v-on:click="changeColorEyes()"
       />
     </div>
     <div class="message" v-if="fieldMessage">
@@ -37,7 +28,7 @@ import WarningSvg from "./WarningSvg.vue";
 
 export default {
   components: { EyesSvg, WarningSvg },
-  props: ["fieldType", "fieldStatus", "fieldMessage", "placeholder"],
+  props: ["fieldType", "fieldMessage", "placeholder"],
   data() {
     return { value: "", eyesStatus: false };
   },
@@ -47,8 +38,20 @@ export default {
     },
   },
   methods: {
-    changeEyes() {
+    changeColorEyes() {
       this.eyesStatus = !this.eyesStatus;
+    },
+    isPassword() {
+      return (
+        this.fieldType === "password" || this.fieldType === "confirmPassword"
+      );
+    },
+    inputType() {
+      return (this.fieldType === "password" ||
+        this.fieldType === "confirmPassword") &&
+        !this.eyesStatus
+        ? "password"
+        : "text";
     },
   },
 };

@@ -4,40 +4,43 @@
 
     <InputField
       fieldType="login"
-      fieldStatus=""
       :fieldMessage="formErors.login"
       placeholder="Логин"
       @update="update($event)"
     />
     <InputField
       fieldType="email"
-      fieldStatus=""
       :fieldMessage="formErors.email"
       placeholder="Email"
       @update="update($event)"
     />
     <InputField
       fieldType="password"
-      fieldStatus=""
       :fieldMessage="formErors.password"
       placeholder="Пароль"
       @update="update($event)"
     />
     <InputField
       fieldType="confirmPassword"
-      fieldStatus=""
       :fieldMessage="formErors.confirmPassword"
       placeholder="Подтвердите пароль"
       @update="update($event)"
     />
     <div class="actions">
-      <a class="button disabled">Зарегистрироваться</a>
+      <a
+        :class="{
+          button: true,
+          disabled: invalid,
+        }"
+        >Зарегистрироваться
+      </a>
     </div>
   </div>
 </template>
 
 <script>
 import InputField from "./InputField.vue";
+import useValidate from "../../utils/useValidate";
 
 export default {
   components: { InputField },
@@ -61,6 +64,28 @@ export default {
   methods: {
     update(event) {
       this.formData[event.type] = event.value;
+
+      const result = useValidate(
+        event.type,
+        event.value,
+        this.formData.password,
+        this.formData.confirmPassword
+      );
+
+      this.formErors[event.type] = result.message;
+
+      if (result.confirm) {
+        this.formErors.password = result.message;
+        this.formErors.confirmPassword = result.message;
+      }
+
+      const keys = Object.values(this.formData);
+      const filter = keys.filter((value) => value.length > 0);
+
+      const keys2 = Object.values(this.formErors);
+      const filter2 = keys2.filter((value) => value.length);
+
+      this.invalid = filter.length < 4 || filter2.length !== 0;
     },
   },
 };

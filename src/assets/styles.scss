@@ -100,12 +100,34 @@ section {
   }
 
   .input-field {
-    margin-bottom: 20px;
+    position: relative;
+    margin-bottom: 30px;
     display: flex;
     flex-direction: column;
   }
 
+  .succes {
+    input {
+      border-color: green;
+      &:focus {
+        border-color: green;
+      }
+    }
+  }
+
+  .warning {
+    input {
+      border-color: #ef233c;
+      &:focus {
+        border-color: #ef233c;
+      }
+    }
+  }
+
   .message {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
     display: flex;
     align-items: center;
     color: #ef233c;
@@ -118,7 +140,7 @@ section {
   .input-box {
     width: 100%;
     display: flex;
-    margin: 8px 0;
+    margin: 4px 0;
     position: relative;
     svg {
       position: absolute;
@@ -129,6 +151,9 @@ section {
       &:hover {
         color: #5680e9;
       }
+    }
+    .active {
+      color: #5680e9;
     }
   }
 
@@ -141,6 +166,9 @@ section {
     background-color: rgba(237, 242, 244, 0.4);
     border: 1px solid rgba(141, 153, 174, 0.4);
     border-radius: 8px;
+    &:focus {
+      border-color: #5680e9;
+    }
   }
 
   .actions {
